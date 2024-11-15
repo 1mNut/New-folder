@@ -1,0 +1,37 @@
+{ 
+    "dict_items": {
+        "vedtra": {
+            "name": "Vedträ",
+            "type": "Weapon",
+            "strenght": 1,
+            "heal": null
+            
+        },
+        "stensvard": {
+            "name": "Stensvärd",
+            "type": "Weapon",
+            "strenght": 3,
+            "heal": null
+
+        },
+        "bomerang": {
+            "name": "BananaRang",       
+            "type": "Weapon",
+            "strenght": 5,
+            "heal": null
+        },
+        "dunderhonung": {
+            "name": "Farmors Dunderhonung",
+            "type": "Potion",
+            "strenght": 2,
+            "heal": null
+        },
+        "chugjug": {
+            "name": "ChugJug",
+            "type": "Healing",
+            "strenght": null,
+            "heal": 100
+        }
+    }
+
+}
