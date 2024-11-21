@@ -1,5 +1,6 @@
 import json
-from shared import *
+from shared import player
+from shared import enemy
 from entities import *
 
 
@@ -30,37 +31,34 @@ def trap():
 def item():
     with open('items.json', 'r') as f:
         data = json.load(f)
-    random_item = random.choice(list(data.values()))
-    print(f"Wow! You found a {random_item} in the Treasure room.")
+    random_item = random.choice(data)
+    print(f"Wow! You found a {random_item["name"]} in the Treasure room.")
     while True:
-        question = input(f"do you want to put {random_item} in your inventory?")
+        question = input(f"Do you want to put {random_item["name"]} in your inventory?")
         if question.lower() == 'yes':
-            player.inventory.append(random_item)
+            player.inventory.append(random_item["name"])
             break
         elif question.lower() == 'no':
-            print(f"You threw {random_item} in the conveniently placed garbage can!")
+            print(f"You threw {random_item["name"]} in the conveniently placed garbage can!")
             break
         else:
             print("Type 'yes' or 'no'")
 
 def battle(player, enemy):
-    while player.hp > 0 and enemy.hp > 0:
+    while player.health > 0 and enemy.health > 0:
         player.attack(enemy)
-        if enemy.hp > 0:
+        if enemy.health > 0:
             enemy.attack(player)
 
-        if player.hp > 0:
-            print(f"{player.name} wins the fight!")
-        else:
-            print(f"{player.name} has been defeated!")
+    if player.health > 0:
+        print(f"{player.name} has bested the {enemy.name} in a fight to the death!")
+    else:
+        print(f"{player.name} has been defeated by the {enemy.name}")
 
 def make_room():
     random_room =  random.choice(["Monster", "Treasure", "Trap"])
     if random_room == "Monster":
-        enemy_name = random.choice(["Goblin", "Zombie", "Giant Spider"])
-        health = random.randint(5, 15)
-        strength = random.randint(1, 5)
-        return Enemy(enemy_name, health, strength)
+        battle(player, enemy)
     elif random_room == "Treasure":
         item()
     elif random_room == "Trap":
