@@ -1,5 +1,4 @@
 import random
-from shared import player
 
 class Player:
     def __init__(self, name, health, strength, level, inventory=[]):
@@ -31,9 +30,8 @@ class Player:
         for item in self.inventory:
             if item["type"] == "Healing" and item["heal"] is not None:
                 self.health += item["heal"]
-    # def level_up(self):
-    #     wins = 1
-    #     if player 
+    # def level_up(self)
+        
 
 class Enemy:
     def __init__(self, name, health, strength):

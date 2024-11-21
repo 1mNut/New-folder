@@ -2,7 +2,6 @@ from doors import *
 from shared import player
 
 
-
 def main():
     while True:
         if player.health <= 0:

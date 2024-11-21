@@ -3,6 +3,7 @@ from shared import player
 from shared import enemy
 from entities import *
 
+wins = 1 #level räknare
 
 def choose_door():
     print("\nChoose a door:\nDoor 1\nDoor 2\nDoor 3")
@@ -52,6 +53,21 @@ def battle(player, enemy):
 
     if player.health > 0:
         print(f"{player.name} has bested the {enemy.name} in a fight to the death!")
+        player.level += 1
+        while True:
+            choice = input(f"You leveled up! to level {player.level}, do you want strength [1] or health [2]?")
+            if choice == "1":
+                player.strength += 1
+                print(f"You now have {player.strength} strength!")
+                break
+            elif choice == "2":
+                player.health += 1
+                print(f"You now have {player.health} health!")
+                break
+            else:
+                print("X: [1] or [2]")
+
+
     else:
         print(f"{player.name} has been defeated by the {enemy.name}")
 
