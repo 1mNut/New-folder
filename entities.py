@@ -9,7 +9,7 @@ class Player:
         self.inventory = inventory
         
     def show_stats(self):
-        print(f"\nName -> {self.name}\nHealth -> {self.health}\nStrength -> {self.strength}\nLevel -> {self.level}\nitems -> {self.inventory}")
+        print(f'\nName -> {self.name}\nHealth -> {self.health}\nStrength -> {self.strength}\nLevel -> {self.level}\nitems -> {self.inventory}')
 
     def take_damage(self, damage):
         self.health -= damage
@@ -17,21 +17,23 @@ class Player:
     def attack(self, enemy):
         damage = random.randint(1, self.strength)
         enemy.take_damage(damage)
-        print(f"{self.name} attacked the enemy for {damage} health points!")
+        print(f'{self.name} attacked the enemy for {damage} health points!')
     
     def update_strength(self):
-        self.strength = 0
         for item in self.inventory:
-            if item["type"] == "Weapon" or item["type"] == "Potion" and item["strength"] is not None:
-                self.strength += item["strength"]
+            if item == 'Firewood':
+                self.strength += 100
+            elif item == 'Stonesword':
+                self.strength += 100
+            elif item == 'BananaRang':
+                self.strength += 100
+            elif item == 'Farmors Dunderhonung':
+                self.strength += 100
 
-    def healed(self):
-        self.health = 0
+    def update_health(self):
         for item in self.inventory:
-            if item["type"] == "Healing" and item["heal"] is not None:
-                self.health += item["heal"]
-    # def level_up(self)
-        
+            if item == 'ChugJug':
+                self.health = 100
 
 class Enemy:
     def __init__(self, name, health, strength):
@@ -45,4 +47,4 @@ class Enemy:
     def attack(self, player):
         damage = random.randint(1, self.strength)
         player.take_damage(damage)
-        print(f"The {self.name} attacked {player.name} for {damage} health points")
+        print(f'The {self.name} attacked {player.name} for {damage} health points')
