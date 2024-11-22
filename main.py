@@ -17,4 +17,4 @@ def main():
             player.show_stats()
         else:
             print('X: (1) or (2)')
-main()
+main() 

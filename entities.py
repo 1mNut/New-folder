@@ -18,7 +18,7 @@ class Player:
         damage = random.randint(1, self.strength)
         enemy.take_damage(damage)
         print(f'{self.name} attacked the enemy for {damage} health points!')
-    
+     
     def update_strength(self):
         for item in self.inventory:
             if item == 'Firewood':

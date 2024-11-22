@@ -27,7 +27,7 @@ def trap():
             break
 
 
-def item():
+def item(): 
     with open('items.json', 'r') as f:
         data = json.load(f)
     random_item = random.choice(data)
