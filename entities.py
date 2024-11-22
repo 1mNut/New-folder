@@ -21,19 +21,18 @@ class Player:
      
     def update_strength(self):
         for item in self.inventory:
-            if item == 'Firewood':
-                self.strength += 100
-            elif item == 'Stonesword':
-                self.strength += 100
-            elif item == 'BananaRang':
-                self.strength += 100
-            elif item == 'Farmors Dunderhonung':
-                self.strength += 100
+            if isinstance(item, dict) and 'Weapon' or 'Potion':
+                self.strength += int(item['strength']) #<----------------------------------------------------------------------
+                break
 
     def update_health(self):
         for item in self.inventory:
             if item == 'ChugJug':
                 self.health = 100
+                break
+            elif isinstance(item, dict) and 'Healing':
+                self.health += item['heal']
+                break
 
 class Enemy:
     def __init__(self, name, health, strength):

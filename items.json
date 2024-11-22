@@ -1,32 +1,32 @@
 [
     {
-        "name": "Firewood",
+        "name": "Firewood", 
         "type": "Weapon",
-        "strenght": 100,
+        "strength": 100,
         "heal": null
     },
     {
         "name": "Stonesword",
         "type": "Weapon",
-        "strenght": 100,
+        "strength": 100,
         "heal": null
     },
     {
         "name": "BananaRang",
         "type": "Weapon",
-        "strenght": 100,
+        "strength": 100,
         "heal": null
     },
     {
         "name": "Farmors Dunderhonung",
         "type": "Potion",
-        "strenght": 100,
+        "strength": 100,
         "heal": null
     },
     {
         "name": "ChugJug",
         "type": "Healing",
-        "strenght": null,
+        "strength": null,
         "heal": 100
     }
 ]

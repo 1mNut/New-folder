@@ -1,6 +1,7 @@
 import json
 from shared import player
 from entities import *
+import random
 
 
 def choose_door():
@@ -79,16 +80,16 @@ def make_room():
     Giant_Spider = Enemy('Giant Spider', 1, 1)
     random_room =  random.choice(['Monster', 'Treasure', 'Trap'])
     if random_room == 'Monster':
-        # random_enemy = random.choice(['Goblin', 'Zombie', 'Giant Spider'])
-        # if random_enemy == 'Goblin':
-        #    battle(player, Goblin) 
-        # elif random_enemy == 'Zombie':
-        #    battle(player, Zombie)
-        # elif random_enemy == 'Giant Spider':
-        #     battle(player, Giant_Spider)
-        print("monster")
+        random_enemy = random.choice(['Goblin', 'Zombie', 'Giant Spider'])
+        if random_enemy == 'Goblin':
+           battle(player, Goblin) 
+        elif random_enemy == 'Zombie':
+           battle(player, Zombie)
+        elif random_enemy == 'Giant Spider':
+            battle(player, Giant_Spider)
+        # print("monster")
     elif random_room == 'Treasure':
         item()
     elif random_room == 'Trap':
-        print("trap")
-        # trap()
+        # print("trap")
+        trap()
