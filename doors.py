@@ -41,7 +41,7 @@ def item():
             player.update_health()
             break
         elif question.lower() in ['no', 'n']:
-            print(f'You threw {random_item['name']} in the conveniently placed garbage can!')
+            print(f'You threw {random_item['name']} in the conveniently placed garbage bin!')
             break
         else:
             print('X: [yes] or [no] ')
@@ -49,9 +49,26 @@ def item():
 
 def battle(player, enemy):
     while player.health > 0 and enemy.health > 0:
-        player.attack(enemy)
-        if enemy.health > 0:
+        val = input(f'{player.name}, its time for flight or fight, so what shall it be?')
+        if val in ['1', 'fight']:
+            player.attack(enemy)
+            if enemy.health <= 0:
+                break
             enemy.attack(player)
+        elif val in ['2', 'flight']:
+            chance = player.health / enemy.health
+            chance = max(0.0, min(chance, 1.0))
+            if random.random() < chance:
+                print('Your pathetic booty scrambled your way to the next door, shame on you!')
+                choose_door() 
+            else:
+                enemy.attack(player)
+                print('The monster did not let that attempt slide!')
+
+        else:
+            print('1 or 2, fight or flight lil bro, dont play with me boy.')
+
+
 
     if player.health > 0:
         print(f'{player.name} has bested the {enemy.name} in a fight to the death!')
@@ -72,7 +89,6 @@ def battle(player, enemy):
 
     else:
         print(f'{player.name} has been defeated by the {enemy.name}')
-
 
 def make_room():
     Goblin = Enemy('Goblin', 1, 1)

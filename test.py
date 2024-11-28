@@ -1,12 +1,13 @@
-# import json
-# from shared import player
-# from entities import *
-# import random
-
-# with open('items.json', 'r') as f:
-#         data = json.load(f)
-# random_item = random.choice(data)
+import json
+import random
+database = "items.json"
+data = json.loads(open(database).read())
 
 
-# print(random_item['nam'])
-# print(f"\n{random_item['strenght']}")
+
+for i in data:
+    if i['name'] == self.inventory:
+        print(i['strength'])
+        print(i['name'])
+        print(i['heal'])
+        break

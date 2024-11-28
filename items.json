@@ -1,6 +1,6 @@
 [
     {
-        "name": "Firewood", 
+        "name": "Firewood", lägg till descriptions till items
         "type": "Weapon",
         "strength": 100,
         "heal": null
@@ -25,8 +25,14 @@
     },
     {
         "name": "ChugJug",
-        "type": "Healing",
+        "type": "SuperHealing",
         "strength": null,
         "heal": 100
+    },
+    {
+        "name": "Apple",
+        "type": "Healing",
+        "strength": null,
+        "heal": 10
     }
 ]

@@ -1,4 +1,5 @@
 import random
+import json
 
 class Player:
     def __init__(self, name, health, strength, level, inventory=[]):
@@ -18,21 +19,38 @@ class Player:
         damage = random.randint(1, self.strength)
         enemy.take_damage(damage)
         print(f'{self.name} attacked the enemy for {damage} health points!')
-     
+
+    def get_item_info(self, item_name):
+        database = "items.json"
+        data = json.loads(open(database).read())
+        for item in data:
+            if item['name'] == item_name:
+                return item
+    
     def update_strength(self):
-        for item in self.inventory:
-            if isinstance(item, dict) and 'Weapon' or 'Potion':
-                self.strength += int(item['strength']) #<----------------------------------------------------------------------
+        for item_name in self.inventory:
+            currentItem = self.get_item_info(item_name)
+            if currentItem['type'] in ['Weapon', 'Potion']:
+                self.strength += int(currentItem['strength'])
                 break
 
     def update_health(self):
-        for item in self.inventory:
-            if item == 'ChugJug':
-                self.health = 100
-                break
-            elif isinstance(item, dict) and 'Healing':
-                self.health += item['heal']
-                break
+        for item_name in self.inventory:
+            currentItem = self.get_item_info(item_name)
+            if currentItem['type'] == 'SuperHealing':
+                if self.health >= 100:
+                    break
+                else:
+                    self.health = int(currentItem['heal'])
+                    self.inventory.remove(item_name)
+                    break
+            elif currentItem['type'] == 'Healing':
+                if self.health >= 100:
+                    break
+                else:
+                    self.health += int(currentItem['heal'])
+                    self.inventory.pop(item_name)
+                    break
 
 class Enemy:
     def __init__(self, name, health, strength):
