@@ -36,10 +36,24 @@ def item():
     while True:
         question = input(f'Do you want to put {random_item['name']} in your inventory? -> ')
         if question.lower() in ['yes', 'y']:
-            player.inventory.append(random_item['name'])
-            player.update_strength()
-            player.update_health()
-            break
+            if len(player.inventory) == 5:
+                print("Your inventory is full!")
+                replace_question = input(f"Do you want to replace an item in your inventory? -> ")
+                if replace_question.lower() == ["yes", "y"]:
+                    choice = input(f"Which item do you want to replace? (give the number which it is showed in your inventory)")
+                    integer = choice - 1 #gör så att ditt nummer val blir omvandlat till index för python att ta in och byta ut rätt objekt i listan
+                    player.inventory[integer] = random_item['name']
+                    break
+                elif replace_question == ["no", "n"]:
+                    print(f"You threw the {random_item} away.")
+                    break
+                else:
+                    print("X: [yes] or [no]")
+            else:
+                player.inventory.append(random_item['name'])
+                player.update_strength()
+                player.update_health()
+                break
         elif question.lower() in ['no', 'n']:
             print(f'You threw {random_item['name']} in the conveniently placed garbage bin!')
             break
@@ -56,44 +70,27 @@ def battle(player, enemy):
                 break
             enemy.attack(player)
         elif val in ['2', 'flight']:
-            chance = player.health / enemy.health
-            chance = max(0.0, min(chance, 1.0))
-            if random.random() < chance:
+            if random.randint(1, 10) < 5:
                 print('Your pathetic booty scrambled your way to the next door, shame on you!')
                 choose_door() 
             else:
+                print('The monster would not let you run away')
                 enemy.attack(player)
-                print('The monster did not let that attempt slide!')
-
         else:
-            print('1 or 2, fight or flight lil bro, dont play with me boy.')
-
-
-
+            print('X: [1], [fight] or [2], [flight]')
     if player.health > 0:
         print(f'{player.name} has bested the {enemy.name} in a fight to the death!')
         player.level += 1
-        while True:
-            choice = input(f'You leveled up! to level {player.level}, do you want strength [1] or health [2]?')
-            if choice == '1':
-                player.strength += 1
-                print(f'You now have {player.strength} strength!')
-                break
-            elif choice == '2':
-                player.health += 1
-                print(f'You now have {player.health} health!')
-                break
-            else:
-                print('X: [1] or [2]')
-
-
+        print(f'You leveled up! to level {player.level}, You gained one strength')
+        player.strength += 2
+        print(f'You now have {player.strength} strength!')
     else:
         print(f'{player.name} has been defeated by the {enemy.name}')
 
 def make_room():
-    Goblin = Enemy('Goblin', 1, 1)
-    Zombie = Enemy('Zombie', 1, 1)
-    Giant_Spider = Enemy('Giant Spider', 1, 1)
+    Goblin = Enemy('Goblin', 10, 10)
+    Zombie = Enemy('Zombie', 20, 7)
+    Giant_Spider = Enemy('Giant Spider', 40, 5)
     random_room =  random.choice(['Monster', 'Treasure', 'Trap'])
     if random_room == 'Monster':
         random_enemy = random.choice(['Goblin', 'Zombie', 'Giant Spider'])
@@ -103,9 +100,7 @@ def make_room():
            battle(player, Zombie)
         elif random_enemy == 'Giant Spider':
             battle(player, Giant_Spider)
-        # print("monster")
     elif random_room == 'Treasure':
         item()
     elif random_room == 'Trap':
-        # print("trap")
         trap()

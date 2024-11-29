@@ -1,38 +1,44 @@
 [
     {
-        "name": "Firewood", lägg till descriptions till items
+        "name": "Firewood",
         "type": "Weapon",
-        "strength": 100,
-        "heal": null
+        "strength": 2,
+        "heal": null,
+        "description": "An ordinary piece of wood. It makes you feel all fired up and warm on the inside. If you gather enough you could maybe make a campfire!"
     },
     {
         "name": "Stonesword",
         "type": "Weapon",
-        "strength": 100,
-        "heal": null
+        "strength": 4,
+        "heal": null,
+        "description": "This is a beautifully crafted stone sword. Its not the brittle kind of stone its the sturdy type!"
     },
     {
         "name": "BananaRang",
         "type": "Weapon",
-        "strength": 100,
-        "heal": null
+        "strength": 3,
+        "heal": null,
+        "description": "It's a banan'a, it's a bomeran'g, it's a Banan'rang! Although they dont come back when you throw them..." 
     },
     {
         "name": "Farmors Dunderhonung",
         "type": "Potion",
-        "strength": 100,
-        "heal": null
+        "strength": 6,
+        "heal": null,
+        "description": "You dont know how she did it but farmor added dunder to the honung" 
     },
     {
         "name": "ChugJug",
         "type": "SuperHealing",
         "strength": null,
-        "heal": 100
+        "heal": 100,
+        "description": "Somehow this item travelled here from another world. It takes an entire 15 seconds to fully consume."
     },
     {
         "name": "Apple",
         "type": "Healing",
         "strength": null,
-        "heal": 10
+        "heal": 10,
+        "description": "Don't know how this apple got into this dungeon, whatever. It works as a Doctor repellent, わーい!"
     }
 ]
