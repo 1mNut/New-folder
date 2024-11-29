@@ -3,20 +3,49 @@ import json
 import simple_colors 
 
 class Player:
-    def __init__(self, name, health, strength, level, inventory=[None] * 5):
+    def __init__(self, name, health, strength, level, inventory=[]):
         self.name = name
         self.health = health
         self.strength = strength
         self.level = level
         self.inventory = inventory
+
+    def get_item_info(self, item_name):
+        database = "items.json"
+        data = json.loads(open(database).read())
+        for item in data:
+            if item['name'] == item_name:
+                return item
         
     def show_stats(self):
-        print('\nName -> {self.name} \nHealth -> {self.health}\nStrength -> {self.strength}\nLevel -> {self.level}\nitems -> {self.inventory}')
-        choice = input('Do you want to inspect an item in the inventory?')
-        if choice == ['yes', 'y']:
-            choice_2 = input("which item do you want to inspect?")
-            integer = choice_2 - 1
-            if self.inventory == #<------------------------------------------------------------------------------
+        print(f'\nName -> {self.name} \nHealth -> {self.health}\nStrength -> {self.strength}\nLevel -> {self.level}\nitems -> {self.inventory}')
+        choice = input('\nDo you want to inspect an item in the inventory or open a door?\n[1], [2] -> ')
+        if choice == '1':
+            while True:
+                try:
+                    choice_2 = int(input("Which item do you want to inspect? press 6 to go back ->"))
+                    integer = choice_2 - 1
+                    if choice_2 == 6:
+                        break
+                    elif 0 <= integer < len(self.inventory):
+                        get_item = self.get_item_info(self.inventory[integer])
+                        print(f"{get_item['description']}\n{get_item['strength']}\n{get_item['heal']}")
+                        choice_3 = input("Do you want to remove this item from your inventory?\n-> ")
+                        if choice_3.lower() in ['yes', 'y']:
+                            self.inventory.remove(get_item['name'])
+                        elif choice_3.lower() in ['no', 'n']:
+                            break
+                    else:
+                        print("There is no item in that position [6] to exit -> ")
+                except ValueError:
+                    print("There is no item in that position [6] to exit -> ")
+                
+            
+        elif choice == '2':
+            return
+        else:
+            print('X: [1], or [2]')
+            
 
     def take_damage(self, damage):
         self.health -= damage
@@ -28,13 +57,6 @@ class Player:
         else:
             enemy.take_damage(damage)
             print(f'{self.name} attacked the enemy for {damage} health points!')
-
-    def get_item_info(self, item_name):
-        database = "items.json"
-        data = json.loads(open(database).read())
-        for item in data:
-            if item['name'] == item_name:
-                return item
     
     def update_strength(self):
         for item_name in self.inventory:

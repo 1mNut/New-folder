@@ -12,10 +12,10 @@ import random
 #         print(i['heal'])
 #         break
 
-lista = ["1", "2", "3", "4", "5"]
+# lista = ["1", "2", "3", "4", "5"]
 
-print(lista)
+# print(lista)
 
-lista.replace(0, "2")
+# lista.replace(0, "2")
 
-print(lista)
+# print(lista)
