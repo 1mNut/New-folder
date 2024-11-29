@@ -29,7 +29,7 @@ class Player:
                         break
                     elif 0 <= integer < len(self.inventory):
                         get_item = self.get_item_info(self.inventory[integer])
-                        print(f"{get_item['description']}\n{get_item['strength']}\n{get_item['heal']}")
+                        print(f"{get_item['description']}\nStrength: {get_item['strength']}\nHealing: {get_item['heal']}")
                         choice_3 = input("Do you want to remove this item from your inventory?\n-> ")
                         if choice_3.lower() in ['yes', 'y']:
                             self.inventory.remove(get_item['name'])
