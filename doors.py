@@ -3,47 +3,47 @@ from shared import player
 from entities import *
 import random
 
-def choose_door():
-    print(f'\nChoose a door:\ndoor 1\ndoor 2\ndoor 3')
-    while True:
-        choice = input('Enter your choice [1], [2], [3] -> ')
-        if choice in ['1', '2', '3']:
+def choose_door():#skapar en funktion som heter choose_door
+    print(f'\nChoose a door:\ndoor 1\ndoor 2\ndoor 3')#skriver ut, dina dörralternativ
+    while True:#skapar en while loop
+        choice = input('Enter your choice [1], [2], [3] -> ')#gör input så att koden reagerar på vad man svarar
+        if choice in ['1', '2', '3']:#om du skriver 1, 2 eller 3 så aktiverar du funktionen makeroom
             make_room()
             return
-        else:
+        else:#om du skrev något som inte var 1, 2 eller 3 så kommer det understående skrivas ut.
             print('X: [1], [2], or [3]')
 
 
-def trap():
-    while True:
-        damage = random.randint(0, player.strength)
+def trap():#skapar en funktion som heter trap
+    while True:#skapar en while loop så länge det understående är sant.
+        damage = random.randint(0, player.strength)#skada som räknas ut utifrån en slump och spelarens styrka
         print(f"\nOh no, it's a trap!")
-        if damage == 0:
+        if damage == 0:#om skadan är lika med 0 skriv ut det understående och sedan avsluta loopen
             print('You manage to escape the trap without harm')
             break
-        else:
+        else:#om skadan inte är 0 så tar spelaren skada och sedan skriver den ut hur mycket skada och sedan avslutas loopen
             player.take_damage(damage)
             print(f'You took {damage} damage.')
             break
 
 
 def item(): 
-    with open('items.json', 'r') as f:
+    with open('items.json', 'r') as f:#hänvisar koden til items.json och hämtar en av deverse föremål som finns i listan.
         data = json.load(f)
     random_item = random.choice(data)
     print("\nYou enter a treasure room...")
-    print(f'Wow! You found a {random_item['name']} in a chest.')
-    while True:
-        question = input(f'Do you want to put {random_item['name']} in your inventory?\n-> ')
-        if question.lower() in ['yes', 'y']:
-            if len(player.inventory) == 2:
+    print(f'Wow! You found a {random_item['name']} in a chest.')#skriver ut att man hittade ett föremål
+    while True:#skapar en while loop så länge förutsättningarna är sanna.
+        question = input(f'Do you want to put {random_item['name']} in your inventory?\n-> ')#frågar om du vill lägga föremålet i dit inventarium
+        if question.lower() in ['yes', 'y']:#om svaret på input är y eller yes
+            if len(player.inventory) == 2:#om man har 2 föremål i inventarium så är det fullt, då skriver den att den är full.
                 print("Your inventory is full!")
-                question_2 = input(f"Do you want to replace an item in your inventory?\n-> ")
-                if question_2 == "yes" or question_2 == "y":
+                question_2 = input(f"Do you want to replace an item in your inventory?\n-> ")#frågar om man vill byta ut ett föremål.
+                if question_2 == "yes" or question_2 == "y":#om svaret är ja så gör den följande:
                     try:
                         choice = int(input(f"{player.inventory}\nWhich item do you want to replace? [1-5]\n-> "))
                         integer = choice - 1
-                        if 0 <= integer < len(player.inventory):
+                        if 0 <= integer < len(player.inventory):#om man har fler änn 0 föremål i spelarens inventarium så byter man ut ett föremål.
                             item_replace = player.inventory[integer]
                             player.subtract_strength(item_replace)
                             player.inventory[integer] = random_item['name']
@@ -51,62 +51,62 @@ def item():
                             print(f"updated inventory: {player.inventory}")
                             break
                         else:
-                            print('X: [1-5]')
+                            print('X: [1-5]')#om man har skrivet något som inte är ett nummer mellan 1-5 så skrivs detta it
                     except ValueError:
                         print('X: [1-5]')
-                elif question_2 == ["no", "n"]:
+                elif question_2 == ["no", "n"]:#om svaret är nej så skrivs detta underliggand ut sedan så avslutas loopen
                     print(f"You threw the {random_item} away.")
                     break
-                else:
+                else:#om man inte svarar ja eller nej så skrivs underliggand ut.
                     print("X: [yes] or [no]")
             else:
                 player.inventory.append(random_item['name'])
                 player.add_strength()
                 break
-        elif question.lower() in ['no', 'n']:
+        elif question.lower() in ['no', 'n']:#om svaret är nej så lägger man inte till föremålet och sedan så avslutar loopen   
             print(f'You threw {random_item['name']} in the conveniently placed garbage bin!')
             break
         else:
-            print('X: [yes] or [no] ')
+            print('X: [yes] or [no] ')#om svaret är inte ja eller nej så skrivs detta ut
 
 
-def battle(player, enemy):
-    print(f"\nYou entered a room with a {enemy.name} standing infront of you")
-    while player.health > 0 and enemy.health > 0:
-        choice = input(f'\nfight [1]\nflight [2]\n-> ')
-        if choice in ['1', 'fight', 'attack', 'battle']:
+def battle(player, enemy):#skapar en funktion
+    print(f"\nYou entered a room with a {enemy.name} standing infront of you")#skriver ut vilket monster du träffar.
+    while player.health > 0 and enemy.health > 0:#loopen fortsätter så länge spelaren eller monster har hälsa
+        choice = input(f'\nfight [1]\nflight [2]\n-> ')#man får antingen fly eller slåss, vi får välja
+        if choice in ['1', 'fight', 'attack', 'battle']:#om man väljer att slåss så skadas monsteret och spelaren skadas, och så långe man monsteret eller spelaren får 0 hälsa så kommer loopen att börja om.
             player.attack(enemy)
             if enemy.health <= 0:
                 break
             enemy.attack(player)
-        elif choice in ['2', 'flight', 'flee', 'run']:
+        elif choice in ['2', 'flight', 'flee', 'run']:#om man väljer att fly så har men en chans att man lyckas fly
             if random.randint(1, 10) < 5:
                 print('Your pathetic booty scrambled your way to the next door, shame on you!')
-                choose_door()
+                choose_door()#aktiverar funktionen choose_door om man lyckas fly
             else:
                 print("\nYou weren't able to run away from the monster")
                 enemy.attack(player)
-        else:
+        else:#om man skrev fel så får man detta felmedelande utskrivet
             print('X: [1], or [2]')
-    if player.health > 0:
+    if player.health > 0:#om spelarens hälsa är mer änn 0 och monsterets hälsa är mindre änn 0 så vinner man och levlar up vilket ger 2 styrka
         player.level += 1
         player.strength += 2
         print(f'\n{player.name} has bested the {enemy.name} in a fight to the death!\nYou leveled up! to level {player.level}, You gained two strength\n--------------------------------------\nYou now have {player.strength} strength!\nYour remaining health is {player.health}\n--------------------------------------')
-    else:
+    else:#om spelarens hälsa är 0 så förlorar man
         print(f'\n{player.name} has been defeated by the {enemy.name}')
 
-def make_room():
-    Goblin = Enemy('Goblin', 10, 10)
+def make_room():#skapar en funktion som genererar de olika rummen(1,2 eller 3)
+    Goblin = Enemy('Goblin', 10, 10)#den första numret är hälsa och det andra är styrka
     Zombie = Enemy('Zombie', 20, 7)
     Giant_Spider = Enemy('Giant Spider', 40, 5)
 
-    random_room =  random.choice(['1', '2', '3'])
+    random_room =  random.choice(['1', '2', '3'])#skapaer slumpmässigt ett av tre rum, skattrum,ett fällrum och ett monsterrum.
     if random_room == '1':
         item()
     elif random_room == '2':
         trap()
     elif random_room == '3':
-        random_enemy = random.choice(['Goblin', 'Zombie', 'Giant Spider'])
+        random_enemy = random.choice(['Goblin', 'Zombie', 'Giant Spider'])#om rummet är ett monsterrum så är monsteret antingen en rumpnisse, zombie eller stor spindel.
         if random_enemy == 'Goblin':
             battle(player, Goblin)
         elif random_enemy == 'Zombie':
