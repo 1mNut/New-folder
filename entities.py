@@ -45,10 +45,12 @@ class Player:
                                     self.inventory.remove(get_item['name'])
                                 elif choice_3.lower() in ['no', 'n']:
                                     break
+                                else:
+                                    print("X: [yes] or [no]")
                         else:
-                            print("There is no item in that position [6] to exit\n-> ")
+                            print("There is no item in that position")
                 except ValueError:
-                    print("There is no item in that position [6] to exit\n-> ") 
+                    print("There is no item in that position")
             elif choice == '2':
                 break
             else:
@@ -57,6 +59,8 @@ class Player:
 
     def take_damage(self, damage):
         self.health -= damage
+        if self.health < 0:
+            self.health = 0
 
     def attack(self, enemy):
         damage = random.randint(0, self.strength)
@@ -64,7 +68,7 @@ class Player:
             print("Oh no, you missed your attack!")
         else:
             enemy.take_damage(damage)
-            print(f'{self.name} attacked the enemy for {damage} health points!')
+            print(f'{self.name} attacked the enemy for {damage} health points!\n The monster has {enemy.health} hp remaining.')
     
     def add_strength(self):
         for item_name in self.inventory:
@@ -106,6 +110,8 @@ class Enemy:
 
     def take_damage(self, damage):
         self.health -= damage
+        if self.health < 0:
+            self.health = 0
 
     def attack(self, player):
         damage = random.randint(0, self.strength)
@@ -113,4 +119,4 @@ class Enemy:
             print("Yes! the foe missed their attack.")
         else:
             player.take_damage(damage)
-            print(f'The {self.name} attacked {player.name} for {damage} health points')
+            print(f'The {self.name} attacked {player.name} for {damage} health points\n You now have {player.health} hp remaining.')

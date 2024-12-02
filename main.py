@@ -5,7 +5,7 @@ from shared import player
 def main():
     while True:
         if player.health <= 0:
-            print('You lost :(')
+            print("This one wasn't tough enough, maybe the next one...")
             break
         elif player.level == 10:
             print('You advanced all the way to level 10! You have beaten the dungeon!')

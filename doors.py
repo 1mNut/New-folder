@@ -82,21 +82,18 @@ def battle(player, enemy):
         elif choice in ['2', 'flight', 'flee', 'run']:
             if random.randint(1, 10) < 5:
                 print('Your pathetic booty scrambled your way to the next door, shame on you!')
-                choose_door() 
+                choose_door()
             else:
                 print("\nYou weren't able to run away from the monster")
                 enemy.attack(player)
         else:
-            print('X: [1], [fight] or [2], [flight]')
+            print('X: [1], or [2]')
     if player.health > 0:
-        print(f'{player.name} has bested the {enemy.name} in a fight to the death!')
         player.level += 1
-        print(f'You leveled up! to level {player.level}, You gained two strength')
         player.strength += 2
-        print(f'You now have {player.strength} strength!')
-        print(f'Your remaining health is {player.health}')
+        print(f'\n{player.name} has bested the {enemy.name} in a fight to the death!\nYou leveled up! to level {player.level}, You gained two strength\n--------------------------------------\nYou now have {player.strength} strength!\nYour remaining health is {player.health}\n--------------------------------------')
     else:
-        print(f'{player.name} has been defeated by the {enemy.name}')
+        print(f'\n{player.name} has been defeated by the {enemy.name}')
 
 def make_room():
     Goblin = Enemy('Goblin', 10, 10)
