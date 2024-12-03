@@ -1,6 +1,16 @@
 import random
 import json
-import simple_colors 
+
+BLACK = "\033[30m"
+RED = "\033[31m"
+GREEN = "\033[32m"
+YELLOW = "\033[33m"
+BLUE = "\033[34m"
+MAGENTA = "\033[35m"
+CYAN = "\033[36m"
+WHITE = "\033[37m"
+RESET = "\033[0m"
+
 
 class Player:
     def __init__(self, name, health, strength, level, inventory=[]):
@@ -18,25 +28,25 @@ class Player:
                 return item
         
     def show_stats(self):
-        print(f'---------------------------------------\nName -> {self.name} \nHealth -> {self.health}\nStrength -> {self.strength}\nLevel -> {self.level}\nitems -> {self.inventory}\n---------------------------------------')
+        print(f'---------------------------------------\nName -> {CYAN}{self.name}{RESET} \nHealth -> {self.health}\nStrength -> {self.strength}\nLevel -> {self.level}\nitems -> {self.inventory}\n---------------------------------------')
         while True:
-            choice = input('\nDo you want to inspect an item in the inventory [1] or exit [2]?\n-> ')
+            choice = input(f'\nDo you want to inspect an item in the inventory {RED}[1]{RESET} or exit {RED}[2]{RESET}?\n-> ')
             if choice == '1':
                 try:
                     while True:
-                        choice_2 = int(input(f"\nInventory -> {self.inventory}\nWhich item do you want to inspect [1-5]? [6] to exit\n-> "))
+                        choice_2 = int(input(f"\nInventory -> {self.inventory}\nWhich item do you want to inspect {RED}[1-5]{RESET}? {GREEN}[6]{RESET} to exit\n-> "))
                         integer = choice_2 - 1
                         if choice_2 == 6:
                             break
-                        elif 0 <= integer < len(self.inventory): #<----------------------------------------------
+                        elif 0 <= integer < len(self.inventory):
                             get_item = self.get_item_info(self.inventory[integer])
-                            print(f"--------------------\n{get_item['description']}\nStrength: {get_item['strength']}\nHealing: {get_item['heal']}\n--------------------")
+                            print(f"--------------------\n{get_item['description']}\n{RED}Strength:{RESET} {get_item['strength']}\n{GREEN}Healing:{RESET} {get_item['heal']}\n--------------------")
                             if get_item['type'] in ['Healing', 'SuperHealing']:
-                                choice_3 = input(f"Remove this item [1]\nConsume it [2]\nGo back [3]\n->  ")
+                                choice_3 = input(f"Remove this item {RED}[1]{RESET}\nConsume it {RED}[2]{RESET}\nGo back {RED}[3]{RESET}\n->  ")
                                 if choice_3 == '1':
                                     self.inventory.remove(get_item['name'])
                                 elif choice_3 == '2':
-                                    self.add_health()
+                                    self.add_health() #<_------------------------------------------------------------------------
                                     print(f'Your health is {self.health}')
                             else:
                                 choice_3 = input("Do you want to remove this item from your inventory?\n-> ")
@@ -46,15 +56,15 @@ class Player:
                                 elif choice_3.lower() in ['no', 'n']:
                                     break
                                 else:
-                                    print("X: [yes] or [no]")
+                                    print(f"{YELLOW}X: [yes] or [no]{RESET}")
                         else:
-                            print("There is no item in that position")
+                            print(f"{YELLOW}There is no item in that position{RESET}")
                 except ValueError:
-                    print("There is no item in that position")
+                    print(f"{YELLOW}There is no item in that position{RESET}")
             elif choice == '2':
                 break
             else:
-                print('X: [1], or [2]')
+                print(f'{YELLOW}X: [1], or [2]{RESET}')
             
 
     def take_damage(self, damage):
@@ -68,7 +78,7 @@ class Player:
             print("Oh no, you missed your attack!")
         else:
             enemy.take_damage(damage)
-            print(f'{self.name} attacked the enemy for {damage} health points!\n The monster has {enemy.health} hp remaining.')
+            print(f'{CYAN}{self.name}{RESET} attacked the enemy for {damage} health points!\n The monster has {enemy.health} hp remaining.')
     
     def add_strength(self):
         for item_name in self.inventory:
@@ -119,4 +129,4 @@ class Enemy:
             print("Yes! the foe missed their attack.")
         else:
             player.take_damage(damage)
-            print(f'The {self.name} attacked {player.name} for {damage} health points\n You now have {player.health} hp remaining.')
+            print(f'The {YELLOW}{self.name}{RESET} attacked {CYAN}{player.name}{RESET} for {RED}{damage}{RESET} health points\n You now have {GREEN}{player.health}{RESET} hp remaining.')
