@@ -1,7 +1,7 @@
 import random
 import json
 
-BLACK = "\033[30m"
+BLACK = "\033[30m"#Färger för printer för att göra texten mer lätt läst och se bättre ut
 RED = "\033[31m"
 GREEN = "\033[32m"
 YELLOW = "\033[33m"
@@ -47,7 +47,7 @@ class Player:#skapar klassen player. klasser buntar ihop data och funktioner
                                     self.inventory.remove(get_item['name'])
                                 elif choice_3 == '2':#om svaret är 2 så får man så mycket hälsa som föremålet ger.
                                     self.add_health(get_item['name']) #<_------------------------------------------------------------------------
-                                    print(f'Your health is {GREEN}{self.health}{RESET}')
+                                    print(f'Your health is now {GREEN}{self.health}{RESET}')
                             else:#om föremålet inte är av typen healing eller superhealing
                                 choice_3 = input("Do you want to remove this item from your inventory?\n-> ")#frågar om man vill ta bort föremålet från sit inventaruim
                                 if choice_3.lower() in ['yes', 'y']:#om svaret är y eller yes så tas föremålet bort och ens attribut styrka uppdateras

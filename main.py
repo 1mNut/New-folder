@@ -1,7 +1,7 @@
 from doors import *
 from shared import player
 
-BLACK = "\033[30m"
+BLACK = "\033[30m"#Färger för printer för att göra texten mer lätt läst och se bättre ut
 RED = "\033[31m"
 GREEN = "\033[32m"
 YELLOW = "\033[33m"
