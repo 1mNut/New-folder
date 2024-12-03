@@ -28,7 +28,7 @@ class Player:
                 return item
         
     def show_stats(self):
-        print(f'---------------------------------------\nName -> {CYAN}{self.name}{RESET} \n{GREEN}Health{RESET} -> {GREEN}{self.health}{RESET}\n{RED}Strength{RESET} -> {RED}{self.strength}{RESET}\n{BLUE}Level{RESET} -> {BLUE}{self.level}{RESET}\nitems -> {self.inventory}\n---------------------------------------')
+        print(f'---------------------------------------\n{CYAN}Name{RESET} -> {CYAN}{self.name}{RESET} \n{GREEN}Health{RESET} -> {GREEN}{self.health}{RESET}\n{RED}Strength{RESET} -> {RED}{self.strength}{RESET}\n{BLUE}Level{RESET} -> {BLUE}{self.level}{RESET}\n{YELLOW}items{RESET} -> {YELLOW}{self.inventory}{RESET}\n---------------------------------------')
         while True:
             choice = input(f'\nDo you want to inspect an item in the inventory {RED}[1]{RESET} or exit {RED}[2]{RESET}?\n-> ')
             if choice == '1':

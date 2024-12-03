@@ -43,5 +43,5 @@ def main():
         elif choice == '2':
             player.show_stats()
         else:
-            print('X: (1) or (2)')
+            print(f'{YELLOW}X: [1] or [2]{RESET}')
 main() 
