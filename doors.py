@@ -42,7 +42,7 @@ def item():
         data = json.load(f)
     random_item = random.choice(data)
     print("\nYou enter a treasure room...")
-    print(f'Wow! You found a {random_item['name']} in a chest.')#skriver ut att man hittade ett föremål
+    print(f'Wow! You found a {CYAN}{random_item['name']}{RESET} in a chest.')#skriver ut att man hittade ett föremål
     while True:#skapar en while loop så länge förutsättningarna är sanna.
         question = input(f'Do you want to put {MAGENTA}{random_item['name']}{RESET} in your inventory?\n-> ')#frågar om du vill lägga föremålet i dit inventarium
         if question.lower() in ['yes', 'y']:#om svaret på input är y eller yes
@@ -81,7 +81,7 @@ def item():
 
 
 def battle(player, enemy):#skapar en funktion
-    print(f"\nYou entered a room with a {enemy.name} standing infront of you")#skriver ut vilket monster du träffar.
+    print(f"\nYou entered a room with a {YELLOW}{enemy.name}{RESET} standing infront of you")#skriver ut vilket monster du träffar.
     while player.health > 0 and enemy.health > 0:#loopen fortsätter så länge spelaren eller monster har hälsa
         choice = input(f'\n{RED}fight [1]{RESET}\n{BLUE}flight [2]{RESET}\n-> ')#man får antingen fly eller slåss, vi får välja
         if choice in ['1', 'fight', 'attack', 'battle']:#om man väljer att slåss så skadas monsteret och spelaren skadas, och så långe man monsteret eller spelaren får 0 hälsa så kommer loopen att börja om.

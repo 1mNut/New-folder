@@ -28,7 +28,7 @@ class Player:
                 return item
         
     def show_stats(self):
-        print(f'---------------------------------------\nName -> {CYAN}{self.name}{RESET} \nHealth -> {self.health}\nStrength -> {self.strength}\nLevel -> {self.level}\nitems -> {self.inventory}\n---------------------------------------')
+        print(f'---------------------------------------\nName -> {CYAN}{self.name}{RESET} \n{GREEN}Health{RESET} -> {GREEN}{self.health}{RESET}\n{RED}Strength{RESET} -> {RED}{self.strength}{RESET}\n{BLUE}Level{RESET} -> {BLUE}{self.level}{RESET}\nitems -> {self.inventory}\n---------------------------------------')
         while True:
             choice = input(f'\nDo you want to inspect an item in the inventory {RED}[1]{RESET} or exit {RED}[2]{RESET}?\n-> ')
             if choice == '1':
@@ -46,8 +46,8 @@ class Player:
                                 if choice_3 == '1':
                                     self.inventory.remove(get_item['name'])
                                 elif choice_3 == '2':
-                                    self.add_health() #<_------------------------------------------------------------------------
-                                    print(f'Your health is {self.health}')
+                                    self.add_health(get_item['name']) #<_------------------------------------------------------------------------
+                                    print(f'Your health is {GREEN}{self.health}{RESET}')
                             else:
                                 choice_3 = input("Do you want to remove this item from your inventory?\n-> ")
                                 if choice_3.lower() in ['yes', 'y']:
@@ -78,7 +78,7 @@ class Player:
             print("Oh no, you missed your attack!")
         else:
             enemy.take_damage(damage)
-            print(f'{CYAN}{self.name}{RESET} attacked the enemy for {damage} health points!\n The monster has {enemy.health} hp remaining.')
+            print(f'{CYAN}{self.name}{RESET} attacked the enemy for {RED}{damage}{RESET} health points!\n The monster has {GREEN}{enemy.health}{RESET} hp remaining.')
     
     def add_strength(self):
         for item_name in self.inventory:
@@ -87,25 +87,21 @@ class Player:
                 self.strength += int(currentItem['strength'])
                 break
 
-    def add_health(self):
-        for item_name in self.inventory:
+    def add_health(self, item_name):
+        if item_name in self.inventory:
             currentItem = self.get_item_info(item_name)
             if currentItem['type'] == 'SuperHealing':
                 if self.health >= 100:
                     print("You have max health already.")
-                    break
                 else:
                     self.health = int(currentItem['heal'])
                     self.inventory.remove(item_name)
-                    break
             elif currentItem['type'] == 'Healing':
                 if self.health >= 91:
                     print("\nThis item wouldn't be beneficial to use now, use it later.")
-                    break
                 else:
                     self.health += int(currentItem['heal'])
                     self.inventory.remove(item_name)
-                    break
 
     def subtract_strength(self, item_name):
         currentItem = self.get_item_info(item_name)
